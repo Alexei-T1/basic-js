@@ -10,11 +10,20 @@ import { NotImplementedError } from '../extensions/index.js';
  * depthCalc.calculateDepth([1, 2, 3, 4, 5]) => 1
  * depthCalc.calculateDepth([1, 2, 3, [4, 5]]) => 2
  * depthCalc.calculateDepth([[[]]]) => 3
- *
+ * 
  */
-export default class DepthCalculator {
-  calculateDepth(/* arr */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+ export default class DepthCalculator {
+
+  calculateDepth(arr, check = 1) {
+    let count = check;
+    for(let i = 0; i < arr.length; i++) {
+      if(Array.isArray(arr[i])) {
+        let temp = this.calculateDepth(arr[i], check + 1);
+        if(temp > count) {
+          count = temp;
+        } 
+      }
+    }
+    return count;
   }
 }
